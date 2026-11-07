@@ -298,63 +298,63 @@ O script realiza as seguintes operações:
 8. Salva a comparação em um arquivo CSV.
 
 A avaliação utiliza confiança mínima (`conf`) de 0,15.
-
 ### Métricas de contagem
 
-**MAE — Mean Absolute Error**
+Para avaliar a capacidade do modelo de estimar corretamente a quantidade de veículos em cada imagem, foram utilizadas as métricas MAE, RMSE, Bias, WAPE e Contagem Exata.
 
-Erro absoluto médio entre a contagem prevista e a contagem real.
+**1. MAE — Mean Absolute Error (Erro Absoluto Médio)**
 
-\[
+Calcula a média das diferenças absolutas entre a quantidade prevista e a quantidade real de veículos.
+
+$$
 MAE = \frac{1}{N}\sum_{i=1}^{N}|P_i-R_i|
-\]
+$$
 
-Em que:
-- \(P_i\): quantidade prevista na imagem.
-- \(R_i\): quantidade real na imagem.
-- \(N\): quantidade de imagens avaliadas.
+**2. RMSE — Root Mean Squared Error (Raiz do Erro Quadrático Médio)**
 
-Quanto menor o MAE, melhor a estimativa de contagem.
+Calcula a raiz da média dos erros quadráticos. Essa métrica penaliza mais fortemente erros de contagem elevados.
 
-**RMSE — Root Mean Squared Error**
-
-Raiz do erro quadrático médio. Penaliza mais os erros elevados.
-
-\[
+$$
 RMSE = \sqrt{\frac{1}{N}\sum_{i=1}^{N}(P_i-R_i)^2}
-\]
+$$
 
-Quanto menor o RMSE, menor a ocorrência de erros grandes.
+**3. Bias — Viés Médio**
 
-**Viés médio (Bias)**
+Indica se o modelo apresenta tendência a superestimar ou subestimar a quantidade de veículos.
 
-Indica se o modelo tende a superestimar ou subestimar a quantidade de veículos.
-
-\[
+$$
 Bias = \frac{1}{N}\sum_{i=1}^{N}(P_i-R_i)
-\]
+$$
 
-- Resultado positivo: tendência a contar mais veículos.
-- Resultado negativo: tendência a contar menos veículos.
-- Resultado próximo de zero: ausência de tendência média significativa.
+- **Bias positivo:** o modelo tende a prever mais veículos do que existem.
+- **Bias negativo:** o modelo tende a prever menos veículos do que existem.
+- **Bias próximo de zero:** indica que os erros positivos e negativos se compensam na média.
 
-**WAPE — Weighted Absolute Percentage Error**
+**4. WAPE — Weighted Absolute Percentage Error (Erro Percentual Absoluto Ponderado)**
 
-Representa o erro absoluto total em relação à quantidade total de veículos reais.
+Representa a soma dos erros absolutos em relação à quantidade total de veículos reais, expressa em porcentagem.
 
-\[
-WAPE = \frac{\sum_{i=1}^{N}|P_i-R_i|}{\sum_{i=1}^{N}R_i}\times100
-\]
+$$
+WAPE = \frac{\sum_{i=1}^{N}|P_i-R_i|}{\sum_{i=1}^{N}R_i}\times 100
+$$
 
-Quanto menor o WAPE, melhor a contagem considerando o conjunto completo.
+**5. Contagem Exata**
 
-**Contagem exata**
+Representa o percentual de imagens em que a quantidade prevista pelo modelo foi exatamente igual à quantidade real.
 
-Percentual de imagens em que a quantidade prevista foi exatamente igual à quantidade real.
+$$
+Contagem\ Exata =
+\frac{\text{Número de imagens com contagem correta}}{N}
+\times 100
+$$
 
-\[
-Exatidão = \frac{\text{Imagens com contagem exata}}{N}\times100
-\]
+**Variáveis utilizadas:**
+
+- \(P_i\): quantidade de veículos prevista pelo modelo na imagem \(i\).
+- \(R_i\): quantidade real de veículos registrada na anotação da imagem \(i\).
+- \(N\): número total de imagens avaliadas.
+
+**Interpretação:** para MAE, RMSE e WAPE, valores menores indicam melhor desempenho. Para a contagem exata, valores maiores indicam maior proporção de imagens com estimativas corretas. O Bias deve ser analisado considerando seu sinal e sua magnitude.
 
 ### Resultados obtidos
 
