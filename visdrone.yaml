@@ -1,0 +1,12 @@
+path: /mnt/c/Users/Aira Winner/Downloads/vehicle_c/dataset/dataset_yolo
+train: images/train
+val: images/val
+names:
+  0: bicycle
+  1: car
+  2: van
+  3: truck
+  4: tricycle
+  5: awning-tricycle
+  6: bus
+  7: motor
